@@ -1,0 +1,72 @@
+BEGIN;
+--
+-- Create model Customer
+--
+CREATE TABLE "data_customer" ("CustNum" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "CustName" varchar(50) NOT NULL, "CustAddr" varchar(50) NOT NULL, "Lang" varchar(3) NOT NULL, "Div" varchar(3) NOT NULL, "CustCur" varchar(3) NOT NULL, "SearchTerm" varchar(5) NOT 
+NULL);
+--
+-- Create model Material
+--
+CREATE TABLE "data_material" ("MatNum" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "MatName" varchar(50) NOT NULL, "Weight" decimal 
+NOT NULL, "MatDesc" varchar(50) NOT NULL, "Price" decimal NOT NULL);
+--
+-- Create model Order
+--
+CREATE TABLE "data_order" ("OrdNum" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "OrdCur" varchar(3) NOT NULL, "OdrCreDate" date NOT 
+NULL, "DelDdl" date NOT NULL, "IsPost" bool NOT NULL, "TotDisc" decimal NOT NULL, "PayCustNum_id" integer NOT NULL REFERENCES "data_customer" ("CustNum") DEFERRABLE INITIALLY DEFERRED, "RcvCustNum_id" integer NOT NULL REFERENCES "data_customer" ("CustNum") DEFERRABLE INITIALLY DEFERRED);
+--
+-- Create model Plant
+--
+CREATE TABLE "data_plant" ("PlantNum" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "PlantName" varchar(50) NOT NULL, "PlantLoc" varchar(50) NOT NULL);
+--
+-- Create model User
+--
+CREATE TABLE "data_user" ("username" varchar(5) NOT NULL PRIMARY KEY, "password" varchar(20) NOT NULL);
+--
+-- Create model PlantMat
+--
+CREATE TABLE "data_plantmat" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "Stock" integer NOT NULL, "PM_MatNum_id" integer NOT 
+NULL REFERENCES "data_material" ("MatNum") DEFERRABLE INITIALLY DEFERRED, "PM_PlantNum_id" integer NOT NULL REFERENCES "data_plant" 
+("PlantNum") DEFERRABLE INITIALLY DEFERRED);
+--
+-- Add field materials to plant
+--
+CREATE TABLE "new__data_plant" ("PlantNum" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "PlantName" varchar(50) NOT NULL, "PlantLoc" 
+varchar(50) NOT NULL);
+INSERT INTO "new__data_plant" ("PlantNum", "PlantName", "PlantLoc") SELECT "PlantNum", "PlantName", "PlantLoc" FROM "data_plant";   
+DROP TABLE "data_plant";
+ALTER TABLE "new__data_plant" RENAME TO "data_plant";
+CREATE INDEX "data_order_PayCustNum_id_f143c667" ON "data_order" ("PayCustNum_id");
+CREATE INDEX "data_order_RcvCustNum_id_41b82556" ON "data_order" ("RcvCustNum_id");
+CREATE INDEX "data_plantmat_PM_MatNum_id_d7599a97" ON "data_plantmat" ("PM_MatNum_id");
+CREATE INDEX "data_plantmat_PM_PlantNum_id_d7b91639" ON "data_plantmat" ("PM_PlantNum_id");
+--
+-- Create model OrdMat
+--
+CREATE TABLE "data_ordmat" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "OrdMatDesc" varchar(50) NOT NULL, "OrdMatQty" integer 
+NOT NULL, "OdrMatDisc" decimal NOT NULL, "OM_MatNum_id" integer NOT NULL REFERENCES "data_material" ("MatNum") DEFERRABLE INITIALLY 
+DEFERRED, "OM_OrdNum_id" integer NOT NULL REFERENCES "data_order" ("OrdNum") DEFERRABLE INITIALLY DEFERRED);
+--
+-- Add field materials to order
+--
+CREATE TABLE "new__data_order" ("OrdNum" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "OrdCur" varchar(3) NOT NULL, "OdrCreDate" date NOT NULL, "DelDdl" date NOT NULL, "IsPost" bool NOT NULL, "TotDisc" decimal NOT NULL, "PayCustNum_id" integer NOT NULL REFERENCES "data_customer" ("CustNum") DEFERRABLE INITIALLY DEFERRED, "RcvCustNum_id" integer NOT NULL REFERENCES "data_customer" ("CustNum") DEFERRABLE INITIALLY DEFERRED);
+INSERT INTO "new__data_order" ("OrdNum", "OrdCur", "OdrCreDate", "DelDdl", "IsPost", "TotDisc", "PayCustNum_id", "RcvCustNum_id") SELECT "OrdNum", "OrdCur", "OdrCreDate", "DelDdl", "IsPost", "TotDisc", "PayCustNum_id", "RcvCustNum_id" FROM "data_order";
+DROP TABLE "data_order";
+ALTER TABLE "new__data_order" RENAME TO "data_order";
+CREATE INDEX "data_ordmat_OM_MatNum_id_66a2de32" ON "data_ordmat" ("OM_MatNum_id");
+CREATE INDEX "data_ordmat_OM_OrdNum_id_0e571973" ON "data_ordmat" ("OM_OrdNum_id");
+CREATE INDEX "data_order_PayCustNum_id_f143c667" ON "data_order" ("PayCustNum_id");
+CREATE INDEX "data_order_RcvCustNum_id_41b82556" ON "data_order" ("RcvCustNum_id");
+--
+-- Create model Delivery
+--
+CREATE TABLE "data_delivery" ("DelNum" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "DelCreDate" date NOT NULL, "PostDdl" date NOT NULL, "PostDate" date NULL, "DelOrdNum_id" integer NOT NULL UNIQUE REFERENCES "data_order" ("OrdNum") DEFERRABLE INITIALLY DEFERRED); 
+--
+-- Add field DelPlant to customer
+--
+CREATE TABLE "new__data_customer" ("CustNum" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "CustName" varchar(50) NOT NULL, "CustAddr" varchar(50) NOT NULL, "Lang" varchar(3) NOT NULL, "Div" varchar(3) NOT NULL, "CustCur" varchar(3) NOT NULL, "SearchTerm" varchar(5) NOT NULL, "DelPlant_id" integer NOT NULL REFERENCES "data_plant" ("PlantNum") DEFERRABLE INITIALLY DEFERRED);
+INSERT INTO "new__data_customer" ("CustNum", "CustName", "CustAddr", "Lang", "Div", "CustCur", "SearchTerm", "DelPlant_id") SELECT "CustNum", "CustName", "CustAddr", "Lang", "Div", "CustCur", "SearchTerm", NULL FROM "data_customer";
+DROP TABLE "data_customer";
+ALTER TABLE "new__data_customer" RENAME TO "data_customer";
+CREATE INDEX "data_customer_DelPlant_id_1f25ddc1" ON "data_customer" ("DelPlant_id");
+COMMIT;

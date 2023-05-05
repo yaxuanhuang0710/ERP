@@ -1,0 +1,21 @@
+<form action="{% url 'ship:check_stock'%}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="查询">
+</form>
+
+{% if is_error %}
+{{ error_msg }}
+{% endif %}
+
+{% if is_suc %}
+<br />
+<table>
+    {% for Material in Material_qs %}
+    <tr>
+        <td>{{Material}}</td> 
+        <td><a href="\ship\check_stock_detail\{{ Material.MatNum}}" target="_blank">></a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}

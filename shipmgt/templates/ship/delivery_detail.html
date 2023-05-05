@@ -1,0 +1,26 @@
+<table border="1">
+    <tr>
+        <td>发货单号</td>
+        <td>{{delivery}}</td>
+    </tr>
+    <tr>
+        <td>订单号</td>
+        <td>{{delivery.DelOrdNum}}</td>
+    </tr>
+    <tr>
+        <td>创建日期</td>
+        <td>{{delivery.DelCreDate}}</td>
+    </tr>
+    <tr>
+        <td>发货截止日期</td>
+        <td>{{delivery.PostDdl}}</td>
+    </tr>
+    <tr>
+        <td>发货日期</td>
+        <td>{{delivery.PostDate}}</td>
+    </tr>
+</table>
+
+<a href="\ship\delivery_modify\{{delivery.DelNum}}">
+    <button type="button">修改</button>
+</a>

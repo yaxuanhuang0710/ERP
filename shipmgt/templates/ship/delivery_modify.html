@@ -1,0 +1,11 @@
+发货单号:{{delivery}}
+订单号:{{delivery.DelOrdNum}}
+<form action="{{delivery.DelNum}}" method="post" read_only="is_suc">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="修改">
+</form>
+
+{% if is_suc %}
+发货单 {{delivery}} 修改成功
+{% endif %}

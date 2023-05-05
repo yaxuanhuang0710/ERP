@@ -1,0 +1,14 @@
+
+<form action="{{delivery.DelNum}}" method="post" read_only="is_suc">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="确认发货">
+</form>
+
+{% if is_suc %}
+发货单 {{delivery}} 发货成功
+{% endif %}
+
+{% if is_error %}
+{{ error_msg }}
+{% endif %}

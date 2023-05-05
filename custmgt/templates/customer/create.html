@@ -1,0 +1,344 @@
+<!--<form action="{% url 'customer:create'%}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="创建">
+    {% if is_error %}
+    {{ error_msg }}
+    {% endif %}
+
+    {% if is_suc %}
+    顾客 {{ new_cust }} 创建成功
+    {% endif %}
+
+</form>-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive Admin Dashboard Template">
+    <meta name="keywords" content="admin,dashboard">
+    <meta name="author" content="stacks">
+    <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Title -->
+    <title>创建客户</title>
+
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.jq22.com/jquery/bootstrap-4.2.1.css">
+    <link href="https://cdn.bootcss.com/font-awesome/5.5.0-2/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'plugins/icomoon/style.css'%}" rel="stylesheet">
+    <link href="{% static 'plugins/switchery/switchery.min.css'%}" rel="stylesheet">
+
+
+    <!-- Theme Styles -->
+    <link href="{% static 'css/concept.min.css'%}" rel="stylesheet">
+    <link href="{% static 'css/custom.css'%}" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Page Sidebar -->
+        <div class="page-sidebar">
+            <div class="profile-menu">
+                <a href="app-profile.html">
+                    <img src="{% static 'images/avatars/avatar1.png' %}" alt="">
+                </a>
+            </div>
+            <div class="page-sidebar-inner">
+                <div class="page-sidebar-menu">
+                    <ul>
+                        <li>
+                            <a href="#" data-toggle="tooltip" data-placement="right" title="Customer"><i
+                                    class="fas fa-rocket"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="tooltip" data-placement="right" title="Order"><i
+                                    class="fas fa-globe-africa"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="tooltip" data-placement="right" title="Deliver"><i
+                                    class="fas fa-inbox"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div><!-- /Page Sidebar -->
+        <div class="settings-sidebar">
+            <div class="settings-sidebar-content">
+                <div class="settings-sidebar-header">
+                    <span>Settings</span>
+                    <a href="javascript: void(0);" class="settings-menu-close"><i class="icon-close"></i></a>
+                </div>
+                <div class="right-sidebar-settings">
+                    <span class="settings-title">General Settings</span>
+                    <ul class="sidebar-setting-list list-unstyled">
+                        <li>
+                            <span class="settings-option">Notifications</span><input type="checkbox" class="js-switch"
+                                checked />
+                        </li>
+                        <li>
+                            <span class="settings-option">Activity log</span><input type="checkbox" class="js-switch"
+                                checked />
+                        </li>
+                        <li>
+                            <span class="settings-option">Automatic updates</span><input type="checkbox"
+                                class="js-switch" />
+                        </li>
+                        <li>
+                            <span class="settings-option">Allow backups</span><input type="checkbox"
+                                class="js-switch" />
+                        </li>
+                    </ul>
+                    <span class="settings-title">Account Settings</span>
+                    <ul class="sidebar-setting-list list-unstyled">
+                        <li>
+                            <span class="settings-option">Chat</span><input type="checkbox" class="js-switch" checked />
+                        </li>
+                        <li>
+                            <span class="settings-option">Incognito mode</span><input type="checkbox"
+                                class="js-switch" />
+                        </li>
+                        <li>
+                            <span class="settings-option">Public profile</span><input type="checkbox"
+                                class="js-switch" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="settings-overlay"></div>
+        <!-- Page Content -->
+        <div class="page-content">
+            <div class="secondary-sidebar">
+                <div class="secondary-sidebar-bar">
+                    <a href="#" class="logo-box">销售与分销</a>
+                </div>
+                <div class="secondary-sidebar-menu">
+                    <ul class="accordion-menu">
+                        <li>
+                            <a href="index.html">
+                                <i class="menu-icon icon-home4"></i><span>主页</span>
+                            </a>
+                        </li>
+                        <li class="active-page">
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon icon-code"></i><span>客户管理</span><i
+                                    class="accordion-icon fas fa-angle-left"></i>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="\customer\create\" class="active">创建客户</a></li>
+                                <li><a href="\customer\inquery\">查询客户</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon icon-layers"></i><span>订单管理</span><i
+                                    class="accordion-icon fas fa-angle-left"></i>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="\order\create\">创建订单</a></li>
+                                <li><a href="\order\inquery\">查询订单</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon icon-star"></i><span>发货管理</span><i
+                                    class="accordion-icon fas fa-angle-left"></i>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="\ship\delivery_create\">创建发货单</a></li>
+                                <li><a href="\ship\delivery_inquery\">查询发货单</a></li>
+                                <li><a href="\ship\post\">发货</a></li>
+                                <li><a href="\ship\check_stock\">查询库存</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="charts.html">
+                                <i class="menu-icon icon-show_chart"></i><span>图表</span>
+                            </a>
+                        </li>
+                        <li class="menu-divider"></li>
+                        <li>
+                            <a href="#">
+                                <i class="menu-icon icon-help_outline"></i><span>Documentation</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="menu-icon icon-public"></i><span>SAP SD</span><span
+                                    class="badge badge-danger">1.0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="search-form">
+                    <form action="#" method="GET">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control search-input"
+                                placeholder="Type something...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" id="close-search" type="button"><i
+                                        class="icon-close"></i></button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <nav class="navbar navbar-default navbar-expand-md">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <div class="logo-sm">
+                                <a href="javascript:void(0)" id="sidebar-toggle-button"><i class="fas fa-bars"></i></a>
+                                <a class="logo-box" href="index.html"><span>concept</span></a>
+                            </div>
+                            <button type="button" class="navbar-toggler collapsed" data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <i class="fas fa-angle-down"></i>
+                            </button>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+
+                        <div class="collapse navbar-collapse justify-content-between" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav mr-auto">
+                                <li class="collapsed-sidebar-toggle-inv"><a href="javascript:void(0)"
+                                        id="collapsed-sidebar-toggle-button"><i class="fas fa-bars"></i></a></li>
+                                <li><a href="javascript:void(0)" id="toggle-fullscreen"><i
+                                            class="fas fa-expand"></i></a></li>
+                                <li><a href="javascript:void(0)" id="search-button"><i class="fas fa-search"></i></a>
+                                </li>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+
+                    </div><!-- /.container-fluid -->
+                </nav>
+            </div><!-- /Page Header -->
+            <!-- Page Inner -->
+            <div class="page-inner no-page-title">
+                <div id="main-wrapper">
+                    <div class="content-header">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb breadcrumb-style-1">
+                                <li class="breadcrumb-item"><a href="#">客户管理</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">创建客户</li>
+                            </ol>
+                        </nav>
+                        <h1 class="page-title">创建客户</h1>
+                    </div>
+                    <h5 class="page-desc">你可以通过这种方式创建一位新客户的主数据。 </h5>
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-xl">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">客户基础信息</h5>
+                                    <p>你可以在这里输入客户的基础信息。</p>
+                                    <form action="{% url 'customer:create'%}" method="post">
+                                        {% csrf_token %}
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">客户名</label>
+                                            <input class="form-control" aria-describedby="emailHelp"
+                                                placeholder="Enter name" name="CustName" value="{{CustName}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1">地址</label>
+                                            <input class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                                placeholder="Enter address" name="CustAddr"
+                                                value="{{CustAddr}}"></input>
+                                        </div>
+                                        <div class="needs-validation" novalidate>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputState">语言</label>
+                                                    <select id="inputState" class="form-control custom-select"
+                                                        name="Lang" value="{{Lang}}">
+                                                        <option selected value="ZH">汉语</option>
+                                                        <option value="EN">英语</option>
+                                                        <option value="ES">西班牙语</option>
+                                                        <option value="FR">法语</option>
+                                                        <option value="PT">葡萄牙语</option>
+                                                        <option value="DE">德语</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputState">部门</label>
+                                                    <select id="inputState" class="form-control custom-select"
+                                                        name="Div" value="{{Div}}">
+                                                        <option selected value="BI">自行车</option>
+                                                        <option value="AS">配件</option>
+                                                        <option value="00">自行车&配件</option>
+                                                        <option value="01">其他</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputState">货币</label>
+                                                    <select id="inputState" class="form-control custom-select"
+                                                        name="CustCur" value="{{CustCur}}">
+                                                        <option selected value="CNY">人民币</option>
+                                                        <option value="HKD">港元</option>
+                                                        <option value="TWD">台币</option>
+                                                        <option value="EUR">欧元</option>
+                                                        <option value="USD">美元</option>
+                                                        <option value="GBP">英镑</option>
+                                                        <option value="JPY">日元</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="validationCustom01">搜索项</label>
+                                                    <input type="text" class="form-control" id="validationCustom01"
+                                                        name="SearchTerm" value="{{SearchTerm}}">
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputState">交货工厂</label>
+                                                    <select id="inputState" class="form-control custom-select"
+                                                        name="DelPlant" value="{{DelPlant}}">
+                                                        <option selected>————</option>
+                                                        <option value="{{1}}">P0001</option>
+                                                        <option value="{{2}}">P0002</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="submit" class="btn btn-primary" value="创建">
+                                        {% if is_error %}
+                                        {{ error_msg }}
+                                        {% endif %}
+
+                                        {% if is_suc %}
+                                        顾客 {{ new_cust }} 创建成功
+                                        {% endif %}
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div><!-- /Page Content -->
+    </div><!-- /Page Container -->
+    <!-- Javascripts -->
+    <script src="{% static 'plugins/jquery/jquery-3.1.0.min.js'%}"></script>
+    <script src="{% static 'plugins/bootstrap/popper.min.js'%}"></script>
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'plugins/jquery-slimscroll/jquery.slimscroll.min.js'%}"></script>
+    <script src="{% static 'plugins/switchery/switchery.min.js'%}"></script>
+    <script src="{% static 'js/concept.min.js'%}"></script>
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+[
+    {
+        "model": "data.User",
+        "pk": "SD001",
+        "fields": {
+            "password": "SDPWD"
+        }
+    },
+    {
+        "model": "data.Material",
+        "pk": 1,
+        "fields": {
+            "MatName": "Bike_1st",
+            "Weight": 25,
+            "MatDesc": "第一个自行车",
+            "Price": 700
+        }
+    },
+    {
+        "model": "data.Material",
+        "pk": 2,
+        "fields": {
+            "MatName": "Bike_2nd",
+            "Weight": 30,
+            "MatDesc": "第二个自行车",
+            "Price": 800
+        }
+    },
+    {
+        "model": "data.Plant",
+        "pk": 1,
+        "fields": {
+            "PlantName": "上海嘉定仓库",
+            "PlantLoc": "上海市嘉定区曹安公路4800号"
+        }
+    },
+    {
+        "model": "data.Plant",
+        "pk": 2,
+        "fields": {
+            "PlantName": "上海杨浦仓库",
+            "PlantLoc": "上海市杨浦区四平路1239号"
+        }
+    },
+    {
+        "model": "data.PlantMat",
+        "pk": 1,
+        "fields": {
+            "PM_PlantNum": 1,
+            "PM_MatNum": 2,
+            "Stock": 50
+        }
+    },
+    {
+        "model": "data.PlantMat",
+        "pk": 2,
+        "fields": {
+            "PM_PlantNum": 2,
+            "PM_MatNum": 1,
+            "Stock": 300
+        }
+    },
+    {
+        "model": "data.Customer",
+        "pk": 1,
+        "fields": {
+            "CustName": "复旦自行车",
+            "CustAddr": "上海市杨浦区邯郸路",
+            "Lang": "ZH",
+            "Div": "BI",
+            "CustCur": "CNY",
+            "SearchTerm": "FUDAN",
+            "DelPlant": 1
+        }
+    },
+    {
+        "model": "data.Customer",
+        "pk": 2,
+        "fields": {
+            "CustName": "上交自行车",
+            "CustAddr": "上海市徐汇区华山路",
+            "Lang": "EN",
+            "Div": "00",
+            "CustCur": "CNY",
+            "SearchTerm": "SJTU",
+            "DelPlant": 2
+        }
+    },
+    {
+        "model": "data.Order",
+        "pk": 1,
+        "fields": {
+            "PayCustNum": 1,
+            "RcvCustNum": 2,
+            "OrdCur": "CNY",
+            "OdrCreDate": "2021-07-17",
+            "DelDdl": "2021-09-01",
+            "IsPost": "0",
+            "TotDisc": 0.2
+        }
+    },
+    {
+        "model": "data.Order",
+        "pk": 2,
+        "fields": {
+            "PayCustNum": 1,
+            "RcvCustNum": 2,
+            "OrdCur": "CNY",
+            "OdrCreDate": "2021-07-18",
+            "DelDdl": "2021-09-02",
+            "IsPost": "0",
+            "TotDisc": 0.1
+        }
+    },
+    {
+        "model": "data.OrdMat",
+        "pk": 1,
+        "fields": {
+            "OM_OrdNum": 1,
+            "OM_MatNum": 2,
+            "OrdMatDesc": "CNY",
+            "OrdMatQty": 500,
+            "OdrMatDisc": 0.3
+        }
+    },
+    {
+        "model": "data.OrdMat",
+        "pk": 2,
+        "fields": {
+            "OM_OrdNum": 2,
+            "OM_MatNum": 1,
+            "OrdMatDesc": "CNY",
+            "OrdMatQty": 600,
+            "OdrMatDisc": 0.4
+        }
+    },
+    {
+        "model": "data.Delivery",
+        "pk": 1,
+        "fields": {
+            "DelOrdNum": 1,
+            "DelCreDate": "2021-07-18",
+            "PostDdl": "2021-08-07",
+            "PostDate": "2021-08-07"
+        }
+    },
+    {
+        "model": "data.Delivery",
+        "pk": 2,
+        "fields": {
+            "DelOrdNum": 2,
+            "DelCreDate": "2021-07-19",
+            "PostDdl": "2021-08-08",
+            "PostDate": "2021-08-08"
+        }
+    }
+]

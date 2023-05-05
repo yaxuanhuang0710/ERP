@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+{% load static%}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>简洁的登录注册页面演示</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.0.0-alpha.5/tailwind.min.css" rel="stylesheet">
+    <style>
+        .dlbox .weixin,
+        .dlbox .weibo {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background-size: cover;
+        }
+
+        .dlbox .weixin {
+            background-image: url(images/weixin.png);
+        }
+
+        .dlbox .weibo {
+            background-image: url(images/weibo.png);
+        }
+
+        .bg-indigo-100 {
+            background-color: #ebf4ff;
+        }
+
+        .border-gray-200 {
+            border-color: #edf2f7;
+        }
+
+        .bg-gray-100 {
+            background-color: #f7fafc;
+        }
+
+        .bg-indigo-500 {
+            background-color: #667eea;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gray-100 text-gray-900 flex justify-center dlbox">
+    <div class="max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+        <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
+            <div class="mt-12 flex flex-col items-center">
+                <h1 class="text-2xl xl:text-3xl font-extrabold">用户注册</h1>
+                <div class="w-full flex-1 mt-8">
+                    <div class="flex flex-col items-center">
+                        <button class="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+                            <span class="ml-4">注册一个新的账号</span>
+                        </button>
+                    </div>
+
+                    <div class="my-12 border-b text-center">
+                        <div class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
+                            或者使用已有账号登录
+                        </div>
+                    </div>
+                    <div class="mx-auto max-w-xs">
+                        <form action="{% url 'login'%}" method="post">
+                            {% csrf_token %}
+                            <input class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                                   type="text" name="username" , value="{{ username }}">
+                            <input class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                                   type="password" name="password" , value="{{ password }}">
+                            <input class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                                   type="submit" value="登录">
+                        </form>
+                        <p class="mt-6 text-xs text-gray-600 text-center">我同意并遵守服务协议</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-1 bg-indigo-100 text-center hidden lg:flex">
+            <div class="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
+                 style="background-image: url('images/life.png'); ">
+                <img src="{% static 'img/life.png' %}">
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'plugins/jquery/jquery-3.1.0.min.js'%}"></script>
+    <script src="{% static 'layer-v3.5.1/layer/layer.js'%}"></script>
+</body>
+
+</html>

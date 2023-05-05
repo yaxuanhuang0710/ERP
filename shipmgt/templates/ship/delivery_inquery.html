@@ -1,0 +1,21 @@
+<form action="{% url 'ship:delivery_inquery'%}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="查询">
+</form>
+
+{% if is_error %}
+{{ error_msg }}
+{% endif %}
+
+{% if is_suc %}
+<br />
+<table>
+    {% for delivery in delivery_qs %}
+    <tr>
+        <td>{{delivery}}</td> 
+        <td><a href="\ship\delivery_detail\{{ delivery.DelNum}}" target="_blank">></a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
